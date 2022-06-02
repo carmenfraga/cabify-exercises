@@ -10,7 +10,7 @@ router.post('/messages', (req, res, next) => {
 
         res.status(400).json({ message: "Fields must not be empty" })
 
-    } else if (typeof destination !== 'string' && typeof body !== 'string') {
+    } else if (typeof destination !== 'string' || typeof body !== 'string') {
 
         res.status(400).json({ message: "Fields must be filled with text" })
 
