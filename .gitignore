@@ -1,8 +1,11 @@
 # Dependency directory
-node_modules
+messageapp/node_modules
 
 # Debug log from npm
-npm-debug.log
+messageapp/npm-debug.log
 
 # Environment Variables should NEVER be published
-.env
+messageapp/.env
+
+# Data mongo
+data

@@ -3,6 +3,7 @@ const axios = require("axios")
 class MessagesService {
 
     constructor() {
+
         this.api = axios.create({ baseURL: "http://messageapp:3000" })
 
     }
