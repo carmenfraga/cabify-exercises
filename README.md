@@ -22,13 +22,13 @@ A brief description of what this project does and who it's for
 
 Message sent to "destination" `200`
 
-Fields must not be empty `Error 400`
+Fields must not be empty `Error 422`
 
 Fields must be filled with text `Error 400`
 
 Both keys, destination and body are required `Error 400`
 
-<!-- Internal Server Error `Error 500` -->
+Internal Server Error `Error 500`
 
 
 ## Command line tests ran with Postman
