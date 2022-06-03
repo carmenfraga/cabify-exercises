@@ -21,7 +21,7 @@ router.post('/messages', (req, res, next) => {
 
     } else if (typeof destination != 'string' || typeof body != 'string') {
 
-        res.status(400).json({ message: "Fields must be filled with text" })
+        res.status(406).json({ message: "Fields must be filled with text" })
 
     } else {
 
@@ -32,7 +32,7 @@ router.post('/messages', (req, res, next) => {
                 messagesMongodb
                     .saveMessage({ destination, body, number })
                     .then(response => res.status(200).json({ message: "Message successfully recorded" }))
-                    .catch(err => res.status(500).json({ message: "Message recorded as sent, but not confirmed" }))
+                    .catch(err => res.status(504).json({ message: "Message recorded as sent, but not confirmed" }))
             })
 
             .catch(err => res.status(500).json({ message: "The message was not sent" }))

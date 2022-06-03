@@ -1,34 +1,43 @@
 # Project Title: messageapp
 
-A brief description of what this project does and who it's for
+This project consists of a basic messaging system.
+
+There are two services, an external service (localhost) that runs in the port 9001 and messageapp running in port 3000.
+
+MongoDB connected with Docker is used to collect all the data, in port 27017.
+
+The client/user can make two different requests, through the methods POST and GET.
 
 
 # Instructions
 
-1. Install dependencies: `npm install`
-2. Run server: `npm run dev`
+1. Install dependencies: `$ npm install`
+2. Run server: `$ docker-compose up`
 
 
 # Endpoints table
 
 | Method | URL | Description |
 |-------------|-------------|-------------|
-| POST | /messages | Sending messages |
+| POST | /messages | Sending messages & Saving messages in mongodb |
+| GET | /messages | Getting all the messages from mongodb |
 
 
 # Official Contract
 
 ## Possible success and error responses it can return
 
-Message sent to "destination" `200`
+Message successfully recorded `200 OK`
 
-Fields must not be empty `Error 422`
+Fields must not be empty `422 Unprocessable Entity`
 
-Fields must be filled with text `Error 400`
+Both keys, destination and body are required `400 Bad Request`
 
-Both keys, destination and body are required `Error 400`
+Fields must be filled with text `406 Not Acceptable`
 
-Internal Server Error `Error 500`
+Message recorded as sent, but not confirmed `504 Gateway Timeout`
+
+The message was not sent `500 Internal Server Error`
 
 
 ## Command line tests ran with Postman

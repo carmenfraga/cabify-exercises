@@ -14,7 +14,6 @@ const messageSchema = new Schema(
         number: {
             type: Number,
             required: [true, 'Number is required'],
-            unique: true,
             trim: true
         },
         // state: {

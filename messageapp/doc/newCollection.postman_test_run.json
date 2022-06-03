@@ -1,0 +1,84 @@
+{
+	"id": "ea135bf5-8d37-4c61-b681-87b2b83cc880",
+	"name": "New Collection",
+	"timestamp": "2022-06-03T07:51:13.358Z",
+	"collection_id": "0-99335c88-2825-4347-a463-2239e7fd0513",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 0,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "3e729cc1-8933-47a9-aba8-017add38bcb2",
+			"name": "Key values must not be empty",
+			"url": "http://localhost:9001/messages",
+			"time": 12,
+			"responseCode": {
+				"code": 422,
+				"name": "Unprocessable Entity"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				12
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "6a77edfc-f6e8-4fd8-bf0e-9494a8f4335a",
+			"name": "Both keys, destination and body, are required",
+			"url": "http://localhost:9001/messages",
+			"time": 8,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				8
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "b6fd37a2-cbe5-46e8-82f2-e509c466751e",
+			"name": "Key values should be a string",
+			"url": "http://localhost:9001/messages",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				6
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 26,
+	"collection": {
+		"requests": [
+			{
+				"id": "3e729cc1-8933-47a9-aba8-017add38bcb2",
+				"method": "POST"
+			},
+			{
+				"id": "6a77edfc-f6e8-4fd8-bf0e-9494a8f4335a",
+				"method": "POST"
+			},
+			{
+				"id": "b6fd37a2-cbe5-46e8-82f2-e509c466751e",
+				"method": "POST"
+			}
+		]
+	}
+}
