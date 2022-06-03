@@ -15,11 +15,7 @@ const messageSchema = new Schema(
             type: Number,
             required: [true, 'Number is required'],
             trim: true
-        },
-        // state: {
-        //     type: String,
-        //     enum: ["SENT", "SENT-NOT-CONFIRMED", "NOT-SENT"]
-        // }
+        }
     },
     {
         timestamps: true,
