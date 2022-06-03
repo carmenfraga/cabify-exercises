@@ -1,9 +1,12 @@
 const Message = require('../models/Message.model')
+const axios = require("axios")
 
 
 class MessagesMongodb {
 
     constructor() {
+
+        this.api = axios.create({ baseURL: "http://localhost:9001" })
 
     }
 
