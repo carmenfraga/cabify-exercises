@@ -15,6 +15,11 @@ const messageSchema = new Schema(
             type: Number,
             required: [true, 'Number is required'],
             trim: true
+        },
+        state: {
+            type: String,
+            enum: ["SENT", "TIMEOUT", "NOT-SENT"],
+            default: "TIMEOUT"
         }
     },
     {

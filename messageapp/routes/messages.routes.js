@@ -1,7 +1,6 @@
 const router = require('express').Router()
-const messagesService = require("../services/messages.service");
+const messageAppService = require("../services/messageApp.service");
 const Message = require('../models/Message.model');
-const messagesMongodb = require('../services/messages.mongodb');
 const { response } = require('express');
 
 
@@ -25,29 +24,36 @@ router.post('/messages', (req, res, next) => {
 
     } else {
 
-        messagesService
+        messageAppService
             .sendMessage({ destination, body })
+            .then((response) => console.log(res.status(200).json, response.data))
             .then(() => {
 
-                messagesMongodb
-                    .saveMessage({ destination, body, number })
+                return Message
+                    .create({ destination, body, number })
+                    .then(response => Message.findByIdAndUpdate(response.id, { state: 'SENT' }))
                     .then(response => res.status(200).json({ message: "Message successfully recorded" }))
                     .catch(err => res.status(504).json({ message: "Message recorded as sent, but not confirmed" }))
             })
 
-            .catch(err => res.status(500).json({ message: "The message was not sent" }))
+            .catch((err) => {
+
+                Message
+                    .create({ destination, body, number })
+                    .then(response => Message.findByIdAndUpdate(response.id, { state: 'NOT-SENT' }))
+                    .then(response => res.status(500).json({ message: "The message was not sent" }))
+
+            })
 
     }
-
 
 })
 
 
 router.get('/messages', (req, res, next) => {
 
-    messagesMongodb
-
-        .getAllMessages()
+    Message
+        .find()
         .then((allMessages) => res.status(200).json(allMessages))
         .catch(err => res.status(500).json(err))
 });

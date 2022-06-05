@@ -1,6 +1,6 @@
 const axios = require("axios")
 
-class MessagesService {
+class MessageAppService {
 
     constructor() {
 
@@ -20,5 +20,5 @@ class MessagesService {
 
 }
 
-const messagesService = new MessagesService()
-module.exports = messagesService
+const messageAppService = new MessageAppService()
+module.exports = messageAppService

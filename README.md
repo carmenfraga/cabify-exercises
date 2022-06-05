@@ -4,7 +4,7 @@ This project consists of a basic messaging system.
 
 There are two services, an external service (localhost) that runs in the port 9001 and messageapp running in port 3000.
 
-MongoDB connected with Docker is used to collect all the data, in port 27017.
+MongoDB connected with Docker is another server, used to collect all the data, in port 27017.
 
 The client/user can make two different requests, through the methods POST and GET.
 
@@ -19,8 +19,8 @@ The client/user can make two different requests, through the methods POST and GE
 
 | Method | URL | Description |
 |-------------|-------------|-------------|
-| POST | /messages | Sending messages & Saving messages in mongodb |
-| GET | /messages | Getting all the messages from mongodb |
+| POST | /messages | Send a message & Save a message in mongodb |
+| GET | /messages | Get all the messages from mongodb |
 
 
 # Official Contract
