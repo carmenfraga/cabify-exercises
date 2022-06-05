@@ -59,4 +59,15 @@ router.get('/messages', (req, res, next) => {
 });
 
 
+router.delete('/messages', (req, res, next) => {
+
+    Message
+        .remove()
+        .then(() => {
+            res.json({ message: "Messages have been deleted" })
+        })
+        .catch(err => res.status(500).json(err))
+})
+
+
 module.exports = router
