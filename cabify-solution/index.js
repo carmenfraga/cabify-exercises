@@ -4,6 +4,10 @@ import { ValidationError, Validator } from "express-json-validator-middleware";
 
 import getMessages from "./src/controllers/getMessages.js";
 import sendMessage from "./src/controllers/sendMessage.js";
+import createCredit from "./src/controllers/createCredit.js";
+import reloadCredit from "./src/controllers/reloadCredit.js";
+
+
 
 const app = express();
 
@@ -23,6 +27,16 @@ const messageSchema = {
   },
 };
 
+const budgetSchema = {
+  type: "object",
+  required: ["amount"],
+  properties: {
+    amount: {
+      type: "number",
+    }
+  },
+};
+
 app.post(
   "/message",
   bodyParser.json(),
@@ -31,6 +45,13 @@ app.post(
 );
 
 app.get("/messages", getMessages);
+
+app.post(
+  "/credit",
+  bodyParser.json(),
+  validate({ body: budgetSchema }),
+  reloadCredit
+);
 
 app.use((err, req, res, _next) => {
   console.log(res.body);

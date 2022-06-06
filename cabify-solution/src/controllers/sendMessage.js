@@ -1,5 +1,5 @@
 import http from "http";
-
+import budgetMessages from "../clients/getCredit.js";
 import saveMessage from "../clients/saveMessage.js";
 
 export default async (req, res) => {
@@ -22,6 +22,10 @@ export default async (req, res) => {
 
   postReq.on("response", async (postRes) => {
     try {
+      // const checkBudget = await budgetMessages()
+      // console.log('checking budget---->', checkBudget)
+      // let amount = 0
+      // if ()
       await saveMessage({
         ...req.body,
         status: postRes.statusCode === 200 ? "OK" : "ERROR",
