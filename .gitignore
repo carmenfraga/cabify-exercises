@@ -2,10 +2,10 @@
 node_modules
 
 # Debug log from npm
-messageapp/npm-debug.log
+npm-debug.log
 
 # Environment Variables should NEVER be published
-messageapp/.env
+.env
 
 # Data mongo
 data
