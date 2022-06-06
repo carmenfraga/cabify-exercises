@@ -62,7 +62,7 @@ router.get('/messages', (req, res, next) => {
 router.delete('/messages', (req, res, next) => {
 
     Message
-        .remove()
+        .deleteMany()
         .then(() => {
             res.json({ message: "Messages have been deleted" })
         })
