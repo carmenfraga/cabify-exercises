@@ -1,5 +1,5 @@
 # Dependency directory
-messageapp/node_modules
+node_modules
 
 # Debug log from npm
 messageapp/npm-debug.log
