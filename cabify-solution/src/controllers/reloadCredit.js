@@ -12,7 +12,11 @@ export default async (req, res) => {
 
     const budget = await saveCredit(totalBudget)
 
+    const currentBudget2 = await getCredit()
+
     console.log('TOTAL BUDGET---->', totalBudget)
+    console.log('TOTAL BUDGET2---->', currentBudget2)
+
 
     res.json('Your credit is updated');
 }
