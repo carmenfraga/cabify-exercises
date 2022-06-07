@@ -1,17 +1,27 @@
+import locks from 'locks'
+const mutex = locks.createMutex()
 import Budget from "../models/budget.js";
-import mutex from "../mutex.js"
 
 
 
 
 export default (conditions) => {
-    const credit = new Credit(conditions)
 
 
     // Budget.create(conditions);
 
     const query = { name: 'credit' }
-    return Budget.findOneAndUpdate(query, { amount: conditions })
+
+    mutex.lock(async () => {
+        const doc = async () => await Budget.findOneAndUpdate(query, { amount: conditions })
+
+        console.log('We got the lock!');
+        // do stuff
+        doc()
+        mutex.unlock();
+        console.log('We got Unlock!');
+
+    });
 
 
 }
