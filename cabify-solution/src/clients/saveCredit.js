@@ -17,6 +17,7 @@ export default (conditions) => {
         const doc2 = async () => await BudgetCopy.findOneAndUpdate(query, { amount: conditions })
 
 
+
         console.log('We got the lock!');
         // do stuff
         doc()

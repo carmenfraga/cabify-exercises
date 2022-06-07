@@ -14,6 +14,7 @@ export default async (req, res) => {
 
     const currentBudget2 = await getCredit()
 
+
     console.log('TOTAL BUDGET---->', totalBudget)
     console.log('TOTAL BUDGET2---->', currentBudget2)
 
