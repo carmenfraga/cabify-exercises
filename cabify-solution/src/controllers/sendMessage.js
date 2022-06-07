@@ -3,12 +3,24 @@ import getCredit from "../clients/getCredit.js";
 import saveCredit from "../clients/saveCredit.js";
 import saveMessage from "../clients/saveMessage.js";
 
+
 export default async (req, res) => {
   const body = JSON.stringify(req.body);
 
+
+  const credit = await getCredit()
+  console.log(credit)
+
+  // if (credit[0].amount <= 0) {
+  //   res.statusCode = 500
+  //   res.end('No credit error')
+  //   return
+  // }
+
+
   const postOptions = {
-    // host: "127.0.0.1",
-    host: "messageapp",
+    host: "127.0.0.1",
+    //host: "messageapp",
     port: 3000,
     path: "/message",
     method: "post",
@@ -17,7 +29,9 @@ export default async (req, res) => {
       "Content-Type": "application/json",
       "Content-Length": Buffer.byteLength(body),
     },
-  };
+  }
+
+
 
   const postReq = http.request(postOptions);
 
@@ -27,16 +41,14 @@ export default async (req, res) => {
       const credit = await getCredit()
       console.log('GET CREDIT---->', credit)
 
-      if (credit > 0) {
-        console.log('GET CREDIT---->', credit)
-        await saveCredit()
-      }
+      if (credit[0].amount > 0) {
+        await saveCredit(parseInt(credit[0].amount - 1))
+        await saveMessage({
+          ...req.body,
+          status: postRes.statusCode === 200 ? "OK" : "ERROR",
+        });
+      } else res.json("There is not credit there")
 
-
-      await saveMessage({
-        ...req.body,
-        status: postRes.statusCode === 200 ? "OK" : "ERROR",
-      });
       if (postRes.statusCode !== 200) {
         throw new Error('Error in the messageapp request');
       }
@@ -46,6 +58,8 @@ export default async (req, res) => {
     } catch (error) {
       console.log(error.message);
       res.statusCode = 500;
+      const credit = await getCredit()
+      await saveCredit(parseInt(credit[0].amount + 1))
       res.end(`Internal server error: SERVICE ERROR ${error.message}`);
     }
   });
@@ -74,3 +88,4 @@ export default async (req, res) => {
   postReq.write(body);
   postReq.end();
 }
+

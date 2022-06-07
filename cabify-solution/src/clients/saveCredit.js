@@ -1,14 +1,18 @@
 import Budget from "../models/budget.js";
+import mutex from "../mutex.js"
 
 
 
 
-export default (conditions = {}) => {
+export default (conditions) => {
+    const credit = new Credit(conditions)
+
 
     // Budget.create(conditions);
 
-    const id = "629e18efc8978d9f023eca52"
+    const query = { name: 'credit' }
+    return Budget.findOneAndUpdate(query, { amount: conditions })
 
-    return Budget.findByIdAndUpdate(id, { amount: conditions })
+
 }
 
