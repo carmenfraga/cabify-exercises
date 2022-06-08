@@ -2,7 +2,7 @@
   "extends": ["@cabify/eslint-config/recommended"],
   "rules": {
     // Additional, per-project rules...
-    "import/extensions": ["error", "always", { "ignorePackages": true }],
+    "import/extensions": ["off", "always", { "ignorePackages": true }],
     "no-unused-vars": [
       "error",
       {

@@ -1,0 +1,11 @@
+{
+  "javascript.format.enable": false,
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "explorer.autoReveal": true,
+  "prettier.printWidth": 80
+}

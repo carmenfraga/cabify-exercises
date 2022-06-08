@@ -6,8 +6,7 @@ import getMessages from "./src/controllers/getMessages.js";
 import sendMessage from "./src/controllers/sendMessage.js";
 import createCredit from "./src/controllers/createCredit.js";
 import reloadCredit from "./src/controllers/reloadCredit.js";
-
-
+import messageQueue from "./src/queue/messageQueue.js";
 
 const app = express();
 
@@ -33,9 +32,16 @@ const budgetSchema = {
   properties: {
     amount: {
       type: "number",
-    }
+    },
   },
 };
+
+app.post(
+  "/message-queue",
+  bodyParser.json(),
+  validate({ body: messageSchema }),
+  messageQueue
+);
 
 app.post(
   "/message",
