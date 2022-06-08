@@ -42,12 +42,14 @@ export default async (req, res) => {
       console.log('GET CREDIT---->', credit)
 
       if (credit[0].amount > 0) {
-        await saveCredit(parseInt(credit[0].amount - 1))
+        await saveCredit(parseInt(credit[0].amount - 1))  //cuando le devuelvo 1€ en caso de error?
         await saveMessage({
           ...req.body,
           status: postRes.statusCode === 200 ? "OK" : "ERROR",
         });
-      } else res.json("There is not credit there")
+      } else {
+        throw new Error('There is not credit there')
+      }
 
       if (postRes.statusCode !== 200) {
         throw new Error('Error in the messageapp request');
@@ -58,8 +60,6 @@ export default async (req, res) => {
     } catch (error) {
       console.log(error.message);
       res.statusCode = 500;
-      const credit = await getCredit()
-      await saveCredit(parseInt(credit[0].amount + 1))
       res.end(`Internal server error: SERVICE ERROR ${error.message}`);
     }
   });

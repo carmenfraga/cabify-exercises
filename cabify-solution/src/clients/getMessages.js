@@ -1,4 +1,6 @@
-import Message from "../models/message.js";
+import { Message, MessageCopy } from "../models/message.js";
 
+const messages = (conditions = {}) => Message.find(conditions)
+const messagesCopy = (conditions = {}) => MessageCopy.find(conditions)
 
-export default (conditions = {}) => Message.find(conditions);
+export default (messages, messagesCopy)
