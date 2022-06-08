@@ -5,16 +5,16 @@ import { Budget, BudgetCopy } from "../models/budget.js";
 
 
 
-export default (conditions) => {
+export default (amount) => {
 
 
-    // Budget.create(conditions);
+    // Budget.create(amount);
 
     const query = {}
 
     mutex.lock(async () => {
-        const doc = async () => await Budget.findOneAndUpdate(query, { amount: conditions })
-        const doc2 = async () => await BudgetCopy.findOneAndUpdate(query, { amount: conditions })
+        const doc = async () => await Budget.findOneAndUpdate(query, { amount: amount })
+        const doc2 = async () => await BudgetCopy.findOneAndUpdate(query, { amount: amount })
 
 
 

@@ -11,12 +11,6 @@ export default async (req, res) => {
   const credit = await getCredit()
   console.log(credit)
 
-  // if (credit[0].amount <= 0) {
-  //   res.statusCode = 500
-  //   res.end('No credit error')
-  //   return
-  // }
-
 
   const postOptions = {
     host: "127.0.0.1",
@@ -32,23 +26,21 @@ export default async (req, res) => {
   }
 
 
-
   const postReq = http.request(postOptions);
 
   postReq.on("response", async (postRes) => {
     try {
 
       const credit = await getCredit()
-      console.log('GET CREDIT---->', credit)
 
-      if (credit[0].amount > 0) {
-        await saveCredit(parseInt(credit[0].amount - 1))  //cuando le devuelvo 1€ en caso de error?
+      if (credit.amount > 0) {
+        await saveCredit(parseInt(credit.amount - 1))
         await saveMessage({
           ...req.body,
           status: postRes.statusCode === 200 ? "OK" : "ERROR",
         });
       } else {
-        throw new Error('There is not credit there')
+        res.end('There is not credit there')
       }
 
       if (postRes.statusCode !== 200) {
@@ -60,6 +52,8 @@ export default async (req, res) => {
     } catch (error) {
       console.log(error.message);
       res.statusCode = 500;
+      const credit = await getCredit()
+      await saveCredit(parseInt(credit.amount + 1))
       res.end(`Internal server error: SERVICE ERROR ${error.message}`);
     }
   });

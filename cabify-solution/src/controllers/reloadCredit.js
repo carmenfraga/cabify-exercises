@@ -8,7 +8,7 @@ export default async (req, res) => {
     const currentBudget = await getCredit()
     console.log("CURRENT BUDGET----->", currentBudget)
 
-    const totalBudget = currentBudget[0].amount + req.body.amount
+    const totalBudget = currentBudget.amount + req.body.amount
 
     const budget = await saveCredit(totalBudget)
 

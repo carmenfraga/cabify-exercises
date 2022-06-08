@@ -2,4 +2,4 @@ import { Budget } from "../models/budget.js";
 
 
 
-export default (conditions = {}) => Budget.find(conditions)
+export default (conditions = {}) => Budget.findOne(conditions)
