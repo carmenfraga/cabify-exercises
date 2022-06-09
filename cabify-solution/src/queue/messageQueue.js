@@ -1,8 +1,7 @@
 import Queue from "bull";
+
 import getCredit from "../clients/getCredit.js";
 import saveMessage from "../clients/saveMessage.js";
-
-// import messageJob from "../process/messageJob";
 
 const queue = new Queue("myQueue", {
   redis: { host: "localhost", port: 6379 },
@@ -10,6 +9,12 @@ const queue = new Queue("myQueue", {
 
 queue.process((job, done) => {
   console.log("PROCESS", job.data);
+  // const messageId = job.data.id;
+  // const processingMessage = {
+  //   ...job.data,
+  //   status: "PROCESSING",
+  // };
+
   done();
 });
 

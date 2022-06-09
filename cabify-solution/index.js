@@ -2,10 +2,10 @@ import bodyParser from "body-parser";
 import express from "express";
 import { ValidationError, Validator } from "express-json-validator-middleware";
 
-import getMessages from "./src/controllers/getMessages.js";
-import sendMessage from "./src/controllers/sendMessage.js";
 import createCredit from "./src/controllers/createCredit.js";
+import getMessages from "./src/controllers/getMessages.js";
 import reloadCredit from "./src/controllers/reloadCredit.js";
+import sendMessage from "./src/controllers/sendMessage.js";
 import messageQueue from "./src/queue/messageQueue.js";
 
 const app = express();

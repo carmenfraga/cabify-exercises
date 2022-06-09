@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
-import databaseCopy from "../database-copy.js";
+
 import database from "../database.js";
+import databaseCopy from "../database-copy.js";
 
 const messageSchema = new mongoose.Schema({
   destination: String,
