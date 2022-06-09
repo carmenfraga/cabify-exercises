@@ -2,13 +2,10 @@ import http from "http";
 
 import getCredit from "../clients/getCredit.js";
 import saveCredit from "../clients/saveCredit.js";
-import saveMessage from "../clients/saveMessage.js";
+import updateMessage from "../clients/updateMessage.js";
 
-export default async (req, res) => {
-  const body = JSON.stringify(req.body);
-
-  const credit = await getCredit();
-  console.log(credit);
+export default async (messageId, message) => {
+  const body = JSON.stringify(message);
 
   const postOptions = {
     host: "127.0.0.1",
@@ -31,28 +28,19 @@ export default async (req, res) => {
       const value = 1;
 
       if (credit.amount > 0) {
-        await saveCredit(parseInt(credit.amount - value));
-        await saveMessage({
-          ...req.body,
+        saveCredit(parseInt(credit.amount - value));
+        await updateMessage(messageId, {
+          ...message,
           status: postRes.statusCode === 200 ? "OK" : "ERROR",
         });
-      } else {
-        res.end("There is not credit there");
       }
 
       if (postRes.statusCode !== 200) {
         throw new Error("Error in the messageapp request");
       }
-
-      res.statusCode = 200;
-      res.end(postRes.body);
     } catch (error) {
       console.log(error.message);
-      res.statusCode = 500;
-      const credit = await getCredit();
-      const value = 1;
-      await saveCredit(parseInt(credit.amount + value)); // Bug: En caso de tener crédito 0 + error request REGALO 1€
-      res.end(`Internal server error: SERVICE ERROR ${error.message}`);
+      saveCredit(parseInt(credit.amount + value)); // Bug: En caso de tener crédito 0 + error request REGALO 1€
     }
   });
 
@@ -61,20 +49,15 @@ export default async (req, res) => {
     postReq.abort();
 
     try {
-      await saveMessage({
-        ...req.body,
+      await updateMessage(messageId, {
+        ...message,
         status: "TIMEOUT",
       });
     } finally {
-      res.statusCode = 500;
-      res.end("Internal server error: TIMEOUT");
     }
   });
 
-  postReq.on("error", (error) => {
-    res.statusCode = 500;
-    res.end(error.message);
-  });
+  postReq.on("error", (error) => {});
 
   postReq.write(body);
   postReq.end();

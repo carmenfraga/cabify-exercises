@@ -2,18 +2,14 @@ import Queue from "bull";
 
 import getCredit from "../clients/getCredit.js";
 import saveMessage from "../clients/saveMessage.js";
+import processQueue from "./processQueue.js";
 
 const queue = new Queue("myQueue", {
   redis: { host: "localhost", port: 6379 },
 });
 
-queue.process((job, done) => {
-  console.log("PROCESS", job.data);
-  // const messageId = job.data.id;
-  // const processingMessage = {
-  //   ...job.data,
-  //   status: "PROCESSING",
-  // };
+queue.process(async (job, done) => {
+  await processQueue(job);
 
   done();
 });
@@ -34,7 +30,7 @@ const messageQueue = async (req, res) => {
       throw new Error("There is not credit there");
     }
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
     res.statusCode = 500;
     res.end(`Internal server error: SERVICE ERROR ${error.message}`);
   }

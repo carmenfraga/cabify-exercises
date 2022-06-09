@@ -3,7 +3,8 @@ const mutex = locks.createMutex();
 import { Budget, BudgetCopy } from "../models/budget.js";
 
 export default (amount) => {
-  // Budget.create(amount);
+  //   Budget.create({ amount });
+  //   BudgetCopy.create({ amount });
 
   const query = {};
 

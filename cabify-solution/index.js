@@ -2,10 +2,9 @@ import bodyParser from "body-parser";
 import express from "express";
 import { ValidationError, Validator } from "express-json-validator-middleware";
 
-import createCredit from "./src/controllers/createCredit.js";
 import getMessages from "./src/controllers/getMessages.js";
+import getMessageStatus from "./src/controllers/getMessageStatus.js";
 import reloadCredit from "./src/controllers/reloadCredit.js";
-import sendMessage from "./src/controllers/sendMessage.js";
 import messageQueue from "./src/queue/messageQueue.js";
 
 const app = express();
@@ -37,20 +36,15 @@ const budgetSchema = {
 };
 
 app.post(
-  "/message-queue",
+  "/message",
   bodyParser.json(),
   validate({ body: messageSchema }),
   messageQueue
 );
 
-app.post(
-  "/message",
-  bodyParser.json(),
-  validate({ body: messageSchema }),
-  sendMessage
-);
-
 app.get("/messages", getMessages);
+
+app.get("/message/:messageId/status", getMessageStatus);
 
 app.post(
   "/credit",
