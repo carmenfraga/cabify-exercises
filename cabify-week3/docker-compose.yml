@@ -1,10 +1,13 @@
 version: "3"
 services:
   message:
+    image: message
+    environment:
+      - APPENV=1111
     build: message/
     restart: always
-    ports:
-      - "9007:9007"
+    # ports:
+    #   - "9007:9007"
     links:
       - messageapp
       - mongodb_message
@@ -17,6 +20,50 @@ services:
       - redis
     volumes:
       - "./message:/app"
+  message2:
+    image: message2
+    environment:
+      - APPENV=2222
+    build: message/
+    restart: always
+    # ports:
+    #   - "9008:9007"
+    links:
+      - messageapp
+      - mongodb_message
+      - replica_message
+      - redis
+    depends_on:
+      - messageapp
+      - mongodb_message
+      - replica_message
+      - redis
+    volumes:
+      - "./message:/app"
+  message3:
+    image: message3
+    environment:
+      - APPENV=3333
+    build: message/
+    restart: always
+    # ports:
+    #   - "9009:9007"
+    links:
+      - messageapp
+      - mongodb_message
+      - replica_message
+      - redis
+    depends_on:
+      - messageapp
+      - mongodb_message
+      - replica_message
+      - redis
+    volumes:
+      - "./message:/app"
+  haproxy:
+    build: ./haproxy
+    ports:
+      - "8080:8080"
   credit:
     build: credit/
     restart: always
@@ -32,6 +79,7 @@ services:
       - redis
     volumes:
       - "./credit:/app"
+
   messageapp:
     image: cabify/backend-bootcamp-messageapp
     ports:

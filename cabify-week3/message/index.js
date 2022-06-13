@@ -47,6 +47,8 @@ app.get("/messages", getMessages);
 
 app.get("/message/:messageId/status", getMessageStatus);
 
+app.get("/health", getMessages)
+
 app.use((err, req, res, next) => {
   console.log(res.body);
   if (err instanceof ValidationError) {
@@ -56,6 +58,8 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.listen(9007, () => {
-  console.log("App started on PORT 9007");
+const appenv = process.env.APPENV 
+
+app.listen(appenv, () => {
+  console.log(`${appenv} is listening on ${appenv}`);
 });
