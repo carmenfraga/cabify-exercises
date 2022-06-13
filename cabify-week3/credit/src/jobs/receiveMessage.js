@@ -17,7 +17,7 @@ export default function () {
           status: "ERROR",
         });
       } else {
-        console.error("Credito suficiente");
+        console.info("Credito suficiente");
         await updateCredit(messageData);
         send_queue.add({
           ...messageData,

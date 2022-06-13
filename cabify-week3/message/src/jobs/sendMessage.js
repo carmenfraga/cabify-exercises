@@ -15,7 +15,7 @@ receive_queue.process(async (job, done) => {
   const messageData = { ...job.data };
 
   if (job.data.status !== "OK") {
-    console.log("Credito insuficiente");
+    console.error("Credito insuficiente");
 
     await saveMessage({
       ...messageData,
