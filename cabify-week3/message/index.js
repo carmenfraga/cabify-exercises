@@ -59,8 +59,7 @@ app.use((err, req, res, next) => {
   }
 });
 
-const appenv = process.env.APPENV 
 
-app.listen(appenv, () => {
-  console.log(`${appenv} is listening on ${appenv}`);
+app.listen(9007, () => {
+  console.log("App started on PORT 9007");
 });
