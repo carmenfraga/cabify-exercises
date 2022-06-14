@@ -12,7 +12,6 @@ import getMessageStatus from "./src/controllers/getMessageStatus.js";
 import getHealth from "./src/controllers/getHealth.js";
 import getVersion from "./src/controllers/getVersion.js";
 
-
 const app = express();
 
 const validator = new Validator({ allErrors: true });
