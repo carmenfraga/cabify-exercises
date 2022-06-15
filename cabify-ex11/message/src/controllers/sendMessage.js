@@ -1,6 +1,9 @@
 const sendMessage = require("../jobs/sendMessage");
+const setInterval = require("./counter");
+
 
 module.exports = function(req, res) {
+  setInterval('messages')
   sendMessage(req.body)
     .then(messageId => {
       const response = {

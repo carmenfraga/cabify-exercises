@@ -1,6 +1,9 @@
 const getMessage = require("../clients/getMessage");
+const setInterval = require("./counter");
+
 
 module.exports = function(req, res) {
+  setInterval("/message/:messageId/status")
   const messageId = req.params.messageId;
   const conditions = {
     _id: messageId

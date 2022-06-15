@@ -1,4 +1,9 @@
 const express = require("express");
+const promClient = require('prom-client');
+const logger = require("loglevel");
+
+
+logger.setLevel("info")
 
 const bodyParser = require("body-parser");
 const {
@@ -9,7 +14,7 @@ const {
 const sendMessage = require("./src/controllers/sendMessage");
 const getMessages = require("./src/controllers/getMessages");
 const getMessageStatus = require("./src/controllers/getMessageStatus");
-
+const setInterval = require("./src/controllers/counter");
 const app = express();
 
 const validator = new Validator({ allErrors: true });
@@ -47,15 +52,30 @@ app.get("/messages", getMessages);
 
 app.get("/message/:messageId/status", getMessageStatus);
 
+app.get('/metrics', async (req, res) => {
+  setInterval('metrics')
+  try {
+    res.set('Content-Type', promClient.register.contentType)
+    res.end( await promClient.register.metrics())
+
+  } catch (ex){
+    res.status(500).end(ex)
+
+  }
+})
+
+
 app.use(function(err, req, res, next) {
-  console.log(res.body);
+  logger.info(res.body);
   if (err instanceof ValidationError) {
+    logger.err("Invalid request: " + res.body + " error: " + err);
     res.sendStatus(400);
   } else {
+    logger.err("Unhandled internal server error: " + err);
     res.sendStatus(500);
   }
 });
 
 app.listen(9010, function() {
-  console.log("App started on PORT 9010");
+  logger.info("App started on PORT 9010");
 });
