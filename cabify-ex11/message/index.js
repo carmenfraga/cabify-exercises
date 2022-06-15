@@ -53,10 +53,11 @@ app.get("/messages", getMessages);
 app.get("/message/:messageId/status", getMessageStatus);
 
 app.get('/metrics', async (req, res) => {
-  setInterval('metrics')
   try {
     res.set('Content-Type', promClient.register.contentType)
-    res.end( await promClient.register.metrics())
+    const metric = await promClient.register.metrics()
+    console.log(metric)
+    res.end(metric)
 
   } catch (ex){
     res.status(500).end(ex)
